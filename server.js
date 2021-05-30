@@ -2,16 +2,11 @@ require('dotenv').config({ path: './config/.env' });
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const morgan = require('morgan');
-const csrf = require('csurf');
-const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-// const fs = require('fs');
 const Client = require('./models/client');
-// const aeroport = require('./models/aeroport');
-// const Offre = require('./models/offre.model');
 
 const app = express();
 
@@ -21,7 +16,7 @@ const authRoutes = require('./routes/auth.routes');
 require('./config/db');
 
 const csrfProtection = csrf();
-// *** MIDDLEWARES *** //
+
 // ejs
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,14 +37,12 @@ app.use(
         saveUninitialized: false,
     })
 );
-app.use(csrfProtection);
-app.use(flash());
 
 app.use((req, res, next) => {
     if (!req.session.user) {
         return next();
     }
-    // console.log(req.session);
+
     Client.findOne({ where: { id: req.session.user.id } })
         .then((user) => {
             req.user = user;
@@ -66,7 +59,6 @@ app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     next();
 });
-// ! *** Routes *** ! //
 
 app.use('/', ejsRoutes);
 app.use('/', authRoutes);
@@ -75,10 +67,8 @@ app.use((req, res) => {
     res.status(404).render('404');
 });
 
-// *** TESTS  *** ///
-
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5005;
 
 app.listen(PORT, () => {
-    console.log(`server connected on port : localhost: ${PORT}`);
+    console.log(`server running on port : localhost: ${PORT}`);
 });

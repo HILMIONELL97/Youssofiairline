@@ -1,0 +1,16 @@
+<div class="container mt-5">
+
+
+  <% if (offre !== '') { %>
+  <div class="jumbotron">
+    <h1 class="display-3">Airline : <%= offre.airline %> | Prix : <%= offre.prix %> </h1>
+    <p class="lead">Aeroport Depart : <%= offre.aeroport_depart %> | Aeroport Arriver : <%= offre.aeroport_arriver %>
+    </p>
+    <hr class="my-4">
+    <p>Date Depart : <%= offre.date_depart %> | Dare Retour : <%= offre.date_retour %> || <%= offre.place %> Places</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="/validation" role="button">Valider l'offre</a>
+    </p>
+  </div>
+  <% } %>
+</div>

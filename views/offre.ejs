@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <h1>Offre disponible</h1>
+  <% if (offre !== '') { %>
+  <div class="d-flex justify-content-between flex-wrap">
+    <% offre.forEach((offre)=>{ %>
+
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+      <div class="card-header"> Airline : <%= offre.airline %></div>
+      <div class="card-body">
+        <h4 class="card-title">Prix: <%= offre.prix %> DH</h4>
+        <p class="card-text">Date Depart : <%= offre.date_depart %> </p>
+        <p class="card-text">Date Retour : <%= offre.date_retour %> </p>
+        <p class="card-text">Aeroport Depart : <%= offre.aeroport_depart %></p>
+        <p class="card-text">Aeroport Ariver :<%= offre.aeroport_arriver %> </p>
+        <a href="offre/<%= offre.id %>" class="btn btn-dark">choisir</a>
+      </div>
+    </div>
+
+    <% }); %>
+  </div>
+  <% } %>
+</div>
